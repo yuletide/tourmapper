@@ -67,14 +67,12 @@ def process_events():
             "venue": event["venueName"],
             "location": event["location"],
             "eventUrl": event["eventUrl"],
-            "date": date_parsed,
+            "date": str(date_parsed),
         }
         geocoded = geocode_event(_event_obj)
         feature = geojson.Feature(geometry=geocoded["geo_geom"], properties=geocoded)
         features.append(feature)
-    print(
-        geojson.dumps(geojson.FeatureCollection(features), sort_keys=True, default=str)
-    )
+    print(geojson.dumps(features, sort_keys=True, default=str))
 
 
 get_tours_by_date(artist_id, start_date)
